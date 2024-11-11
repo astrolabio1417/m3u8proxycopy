@@ -22,25 +22,6 @@ export async function proxyTs(url, headers, req, res) {
     },
   };
 
-    [
-    "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Methods",
-    "Access-Control-Allow-Headers",
-    "Access-Control-Max-Age",
-    "Access-Control-Allow-Credentials",
-    "Access-Control-Expose-Headers",
-    "Access-Control-Request-Method",
-    "Access-Control-Request-Headers",
-    "Origin",
-    "Vary",
-    "Referer",
-    "Server",
-    "x-cache",
-    "via",
-    "x-amz-cf-pop",
-    "x-amz-cf-id",
-  ].map((header) => res.removeHeader(header));
-
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
   res.setHeader("Access-Control-Allow-Methods", "*");
@@ -49,7 +30,11 @@ export async function proxyTs(url, headers, req, res) {
     if (forceHTTPS) {
       const proxy = https.request(options, (r) => {
         r.headers["content-type"] = "video/mp2t";
+        
         res.writeHead(r.statusCode ?? 200, r.headers);
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers", "*");
+        res.setHeader("Access-Control-Allow-Methods", "*");
 
         r.pipe(res, {
           end: true,
@@ -63,6 +48,9 @@ export async function proxyTs(url, headers, req, res) {
       const proxy = http.request(options, (r) => {
         r.headers["content-type"] = "video/mp2t";
         res.writeHead(r.statusCode ?? 200, r.headers);
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers", "*");
+        res.setHeader("Access-Control-Allow-Methods", "*");
 
         r.pipe(res, {
           end: true,
