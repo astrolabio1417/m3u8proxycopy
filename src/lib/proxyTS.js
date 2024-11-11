@@ -21,6 +21,26 @@ export async function proxyTs(url, headers, req, res) {
       ...headers,
     },
   };
+
+    [
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Methods",
+    "Access-Control-Allow-Headers",
+    "Access-Control-Max-Age",
+    "Access-Control-Allow-Credentials",
+    "Access-Control-Expose-Headers",
+    "Access-Control-Request-Method",
+    "Access-Control-Request-Headers",
+    "Origin",
+    "Vary",
+    "Referer",
+    "Server",
+    "x-cache",
+    "via",
+    "x-amz-cf-pop",
+    "x-amz-cf-id",
+  ].map((header) => res.removeHeader(header));
+
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
   res.setHeader("Access-Control-Allow-Methods", "*");
