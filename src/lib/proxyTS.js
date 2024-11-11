@@ -33,8 +33,6 @@ export async function proxyTs(url, headers, req, res) {
         
         res.writeHead(r.statusCode ?? 200, r.headers);
         res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Headers", "*");
-        res.setHeader("Access-Control-Allow-Methods", "*");
 
         r.pipe(res, {
           end: true,
@@ -49,8 +47,6 @@ export async function proxyTs(url, headers, req, res) {
         r.headers["content-type"] = "video/mp2t";
         res.writeHead(r.statusCode ?? 200, r.headers);
         res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Headers", "*");
-        res.setHeader("Access-Control-Allow-Methods", "*");
 
         r.pipe(res, {
           end: true,
