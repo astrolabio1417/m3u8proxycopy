@@ -30,10 +30,10 @@ export async function proxyTs(url, headers, req, res) {
     if (forceHTTPS) {
       const proxy = https.request(options, (r) => {
         r.headers["content-type"] = "video/mp2t";
-        
-        res.writeHead(r.statusCode ?? 200, r.headers);
-        res.setHeader("Access-Control-Allow-Origin", "*");
+        r.headers["Access-Control-Allow-Origin"] = "*"
 
+        res.writeHead(r.statusCode ?? 200, r.headers);
+        
         r.pipe(res, {
           end: true,
         });
@@ -45,8 +45,9 @@ export async function proxyTs(url, headers, req, res) {
     } else {
       const proxy = http.request(options, (r) => {
         r.headers["content-type"] = "video/mp2t";
+        r.headers["Access-Control-Allow-Origin"] = "*"
+        
         res.writeHead(r.statusCode ?? 200, r.headers);
-        res.setHeader("Access-Control-Allow-Origin", "*");
 
         r.pipe(res, {
           end: true,
